@@ -1,0 +1,612 @@
+BEGIN -- the main body of a code
+dbms_output.put_line('hi eveyone welcome to pl sql lesson');
+END; -- the end 
+/
+ 
+
+// anonymous block without any variable 
+
+SQL> SET EDITFILE c:/demo/sqlEditor.txt;
+SQL> ed
+Wrote file c:/demo/sqlEditor.txt
+
+  1  BEGIN -- the main body of a code
+  2  dbms_output.put_line('hi eveyone welcome to pl sql lesson');
+  3* END; -- the end
+SQL> /
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUTPUT ON
+SQL> /
+hi eveyone welcome to pl sql lesson
+
+PL/SQL procedure successfully completed.
+
+=================================================================
+// sum of 2 number taking input from user
+DECLARE
+	v_num1 NUMBER :=5;
+	v_num2 NUMBER;
+BEGIN -- the main body of a code
+	v_num2 := &a;
+dbms_output.put_line('sum ='|| (v_num1 + v_num2));
+END; -- the end 
+/
+
+
+SQL> SET EDITFILE c:/demo/sqlEditor.txt;
+SQL> ed
+Wrote file c:/demo/sqlEditor.txt
+
+  1  DECLARE
+  2     v_num1 NUMBER :=5;
+  3     v_num2 NUMBER;
+  4  BEGIN -- the main body of a code
+  5     v_num2 := &a;
+  6  dbms_output.put_line('sum ='|| (v_num1 + v_num2));
+  7* END; -- the end
+SQL> /
+Enter value for a: 10
+old   5:        v_num2 := &a;
+new   5:        v_num2 := 10;
+sum =15
+
+PL/SQL procedure successfully completed.
+
+SQL> SET EDITFILE c:/demo/sqlEditor.txt;
+SQL> ed
+Wrote file c:/demo/sqlEditor.txt
+
+
+======================================================================
+// if Then statement in pl sql to find greater number 
+DECLARE
+	v_num1 NUMBER :=5;
+	v_num2 NUMBER;
+BEGIN -- the main body of a code
+	v_num2 := &a;
+	if v_num1 > v_num2
+	THEN
+	dbms_output.put_line('greater no is v_num1  '|| (v_num1));
+	END IF;
+	if v_num2 > v_num1
+	THEN
+	dbms_output.put_line('greater no is v_num2  '|| (v_num2));
+	END IF;
+END; -- the end 
+/
+
+
+SQL> SET EDITFILE c:/demo/sqlEditor.txt;
+SQL> ed
+Wrote file c:/demo/sqlEditor.txt
+
+  1  DECLARE
+  2     v_num1 NUMBER :=5;
+  3     v_num2 NUMBER;
+  4  BEGIN -- the main body of a code
+  5     v_num2 := &a;
+  6     if v_num1 > v_num2
+  7     THEN
+  8     dbms_output.put_line('greater no is v_num1'|| (v_num1));
+  9     END IF;
+ 10     if v_num2 > v_num1
+ 11     THEN
+ 12     dbms_output.put_line('greater no is v_num2'|| (v_num2));
+ 13     END IF;
+ 14* END; -- the end
+ 15  /
+Enter value for a: 10
+old   5:        v_num2 := &a;
+new   5:        v_num2 := 10;
+greater no is v_num210
+
+PL/SQL procedure successfully completed.
+
+SQL> SET EDITFILE c:/demo/sqlEditor.txt;
+SQL> ed
+Wrote file c:/demo/sqlEditor.txt
+
+=====================================================================
+
+
+
+
+ DECLARE
+    v_deptno dept.deptno % TYPE;
+    v_deptname dept.dname % TYPE;
+ BEGIN
+    v_deptno :=&a;
+    v_deptname :='&b';
+    insert into dept VALUES(v_deptno, v_deptname ,'DELHI');
+ END;
+
+
+  8* END;
+SQL> /
+Enter value for a: 66
+old   5:        v_deptno :=&a;
+new   5:        v_deptno :=66;
+Enter value for b: db
+old   6:        v_deptname :='&b';
+new   6:        v_deptname :='db';
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from dept;
+
+    DEPTNO DNAME          LOC
+---------- -------------- -------------
+        10 ACCOUNTING     NEW YORK
+        20 RESEARCH       DALLAS
+        30 SALES          CHICAGO
+        40 OPERATIONS     BOSTON
+        66 db             DELHI
+
+
+=======================================================
+ DECLARE
+    v_dept dept %ROWTYPE;
+ BEGIN
+    v_dept.deptno :=&a;
+    v_dept.dname :='&b';
+    insert into dept(deptno,dname) VALUES(v_dept.deptno, v_dept.dname );
+ END;
+/
+
+SQL> /
+Enter value for a: 77
+old   4:     v_dept.deptno :=&a;
+new   4:     v_dept.deptno :=77;
+Enter value for b: it
+old   5:     v_dept.dname :='&b';
+new   5:     v_dept.dname :='it';
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from dept;
+
+    DEPTNO DNAME          LOC
+---------- -------------- -------------
+        10 ACCOUNTING     NEW YORK
+        20 RESEARCH       DALLAS
+        30 SALES          CHICAGO
+        40 OPERATIONS     BOSTON
+        66 db             DELHI
+        77 it
+
+6 rows selected.
+
+
+
+==============================================================
+
+
+ DECLARE
+    TYPE recname IS RECORD
+	(customer_id NUMBER , customer_name VARCHAR2(20));
+var_rec recname;
+ BEGIN
+    var_rec.customer_id :=20;
+var_rec.customer_name :='smith';
+dbms_output.put_line(var_rec.customer_id || ' ' || var_rec.customer_name);
+ END;
+/
+
+
+
+SQL> /
+
+PL/SQL procedure successfully completed.
+
+SQL> set serveroutput on
+SQL> /
+20 smith
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file c:\demo\sqlEditor.txt
+
+
+====================================================
+
+//declaring global variable
+
+SQL>  b=10;
+SP2-0042: unknown command "b=10" - rest of line ignored.
+SQL>
+SQL>
+SQL>
+SQL> VARIABLE a NUMBER
+SQL>
+SQL> a=10;
+  9*  END;=10=10=10
+SQL>
+
+
+=============================================================
+
+ DECLARE
+    v_dept dept %ROWTYPE;
+ BEGIN
+    v_dept.dname :=&a;
+select loc INTO v_dept.loc FROM dept
+where dname = v_dept.dname;
+   dbms_output.put_line('the location for the given department is' || v_dept.loc);
+ END;
+/
+
+
+
+
+    DEPTNO DNAME          LOC
+---------- -------------- -------------
+        10 ACCOUNTING     NEW YORK
+        20 RESEARCH       DALLAS
+        30 SALES          CHICAGO
+        40 OPERATIONS     BOSTON
+        66 db             DELHI
+        77 it
+
+6 rows selected.
+
+SQL> ed
+Wrote file c:\demo\sqlEditor.txt
+
+  1   DECLARE
+  2      v_dept dept %ROWTYPE;
+  3   BEGIN
+  4      v_dept.dname :=&a;
+  5  select loc INTO v_dept.loc FROM dept
+  6  where dname = v_dept.dname;
+  7     dbms_output.put_line('the location for the given department is' || v_dep
+t.loc);
+  8*  END;
+SQL> /
+Enter value for a: 'SALES'
+old   4:     v_dept.dname :=&a;
+new   4:     v_dept.dname :='SALES';
+the location for the given department isCHICAGO
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file c:\demo\sqlEditor.txt
+
+
+
+=========================================================
+// exception handling
+
+ BEGIN
+   dbms_output.put_line(4/0);
+ END;
+/
+
+
+
+SQL> ed
+Wrote file c:\demo\sqlEditor.txt
+
+  1   BEGIN
+  2     dbms_output.put_line(4/0);
+  3*  END;
+  4  /
+ BEGIN
+*
+ERROR at line 1:
+ORA-01476: divisor is equal to zero
+ORA-06512: at line 2
+
+
+SQL> ed
+Wrote file c:\demo\sqlEditor.txt
+
+
+
+=====================================================
+
+// built in exception
+
+ BEGIN
+   dbms_output.put_line(4/0);
+EXCEPTION
+WHEN ZERO_DIVIDE THEN
+dbms_output.put_line('the denominator can not be zero');
+ END;
+/
+
+
+
+ BEGIN
+   dbms_output.put_line(4/0);
+EXCEPTION
+WHEN ZERO_DIVIDE THEN
+dbms_output.put_line('the denominator can not be zero');
+ END;
+/
+
+
+
+=================================================================
+
+// user exception 
+
+DECLARE
+ exp_diff EXCEPTION;
+v_a NUMBER := 5;
+v_b NUMBER :=10;
+ BEGIN
+	IF v_a < v_b THEN
+		RAISE exp_diff;
+	END IF;
+	dbms_output.put_line('DIFFERENCE Is' || (v_a-v_b));
+EXCEPTION
+WHEN exp_diff THEN
+dbms_output.put_line('the values should always be greater then'|| v_b);
+ END;
+/
+
+
+SQL> /
+the values should always be greater then10
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+
+
+
+===========================================================
+// multiple exception
+
+DECLARE
+ exp_diff EXCEPTION;
+v_a NUMBER := 5;
+v_b NUMBER :=10;
+ BEGIN
+	IF v_a < v_b THEN
+		RAISE exp_diff;
+	END IF;
+	dbms_output.put_line('DIFFERENCE Is' || v_a-v_b);
+	dbms_output.put_line(4/0);
+EXCEPTION
+WHEN exp_diff THEN
+dbms_output.put_line('the values should always be greater then'|| v_b);
+WHEN OTHERS THEN
+dbms_output.put_line('denominators can not be zero'); 
+END;
+/
+
+
+the values should always be greater then10
+
+PL/SQL procedure successfully completed.
+
+
+=========================================================
+// multiple exception 2
+
+DECLARE
+ exp_diff EXCEPTION;
+v_a NUMBER := 14;
+v_b NUMBER :=10;
+ BEGIN
+	IF v_a < v_b THEN
+		RAISE exp_diff;
+	END IF;
+	dbms_output.put_line('DIFFERENCE Is' || v_a-v_b);
+	dbms_output.put_line(4/0);
+EXCEPTION
+WHEN exp_diff THEN
+dbms_output.put_line('the values should always be greater then'|| v_b);
+WHEN OTHERS THEN
+dbms_output.put_line('denominators can not be zero'); 
+END;
+/
+
+/
+
+
+SQL> /
+denominators can not be zero
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file c:\demo\sqlEditor.txt
+
+
+
+========================================================\
+ // named blocks are of 2 types  blocks procedure and functuional 
+
+
+CREATE OR REPLACE PROCEDURE proc1 AS
+-- the procedures declarartion are done here 
+BEGIN
+	dbms_output.put_line('hi ! this is my first procedure');
+END; 
+/
+
+
+
+SQL> EXECUTE PROC1
+hi ! this is my first procedure
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+
+
+
+==================================================
+
+CREATE OR REPLACE PROCEDURE proc2(num1 IN NUMBER, num2 IN NUMBER) AS
+-- the procedures declarartion are done here 
+sum NUMBER;
+BEGIN
+	sum := (num1 +num2);	
+	dbms_output.put_line('sum = '||(num1+ num2));
+END; 
+/
+
+
+SQL> /
+
+Procedure created.
+
+SQL> EXECUTE proc2(3,4)
+sum = 7
+
+=========================================================
+
+
+CREATE OR REPLACE PROCEDURE proc2(num1 IN NUMBER, num2 IN NUMBER, sum OUT NUMBER) 
+IS
+-- the procedures declarartion are done here 
+BEGIN
+sum := num1+num2;
+END; 
+/
+
+
+
+
+
+Procedure created.
+
+SQL> VARIABLE a NUMBER;
+SQL> EXECUTE proc2(3,4,:a);
+
+PL/SQL procedure successfully completed.
+
+SQL> print a;
+
+         A
+----------
+         7
+
+SQL> ed
+Wrote file c:\demo\sqlEditor.txt
+
+
+
+//if you want not to write print a a is automatically 
+//printed
+//then write 
+
+SQL>
+SQL> SET AUTOPRINT ON;
+SQL> EXECUTE proc2(3,4,:a);
+
+PL/SQL procedure successfully completed.
+
+
+         A
+----------
+         7
+
+=================================================================
+
+//positional argument 
+// by default if type of variable i.e [ IN, OUT ] is not specify
+//it takes as IN
+
+CREATE OR REPLACE PROCEDURE proc2(num1  NUMBER, ename VARCHAR2) 
+IS 
+-- the procedures declarartion are done here 
+BEGIN
+	dbms_output.put_line(num1 || '  ' || ename);
+END; 
+/
+
+
+
+Procedure created.
+
+SQL> EXECUTE proc2(20, 'SMITH');
+20  SMITH
+
+
+======================================================
+
+// named argument 
+
+CREATE OR REPLACE PROCEDURE proc2(num1  NUMBER, ename VARCHAR2) 
+IS 
+-- the procedures declarartion are done here 
+BEGIN
+	dbms_output.put_line(num1 || '  ' || ename);
+END; 
+/
+
+
+Procedure created.
+
+SQL> EXECUTE proc2(ename=> 'SMITH', num1 =>20);
+20  SMITH
+
+PL/SQL procedure successfully completed.
+
+SQL>
+
+
+
+
+
+==========================================================
+
+// function block
+
+CREATE OR REPLACE FUNCTION fun1(num1  NUMBER, ename VARCHAR2) 
+-- the procedures declarartion are done here 
+RETURN NUMBER AS
+BEGIN
+	dbms_output.put_line(num1 || '  ' || ename);
+	RETURN 1;
+END; 
+/
+
+
+Function created.
+
+SQL> VARIABLE a NUMBER;
+SQL> EXECUTE :a := fun1(3,4);
+3  4
+
+PL/SQL procedure successfully completed.
+
+
+         A
+----------
+         1
+
+
+=========================================================
+// IN OUT parameters 
+
+	DECLARE
+		a NUMBER;
+		PROCEDURE squareNum(x IN OUT NUMBER)IS
+	BEGIN
+		x :=x*x;
+	END;
+BEGIN
+	a:=23;
+	squareNum(a);
+	dbms_output.put_line('square of(23):' ||a);
+END;	
+/
+
+
+
+ 12  /
+square of(23):529
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file c:\demo\sqlEditor.txt

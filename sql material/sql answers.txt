@@ -1,0 +1,136 @@
+
+SQL> desc STAFF_MASTER
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+
+ STAFF_CODE                                NOT NULL NUMBER(8)
+ STAFF_NAME                                NOT NULL VARCHAR2(50)
+ DESIGN_CODE                                        NUMBER(3)
+ DEPT_CODE                                          NUMBER(2)
+ STAFF_DOB                                          DATE
+ HIREDATE                                           DATE
+ MGR_CODE                                           NUMBER(8)
+ STAFF_SAL                                          NUMBER(10,2)
+ STAFF_ADDRESS                                      VARCHAR2(240)
+
+1.
+
+SQL> select STAFF_NAME AS NAME  , DESIGN_CODE AS DESIGNATION_CODE FROM STAFF_MAS
+TER where HIREDATE< '01-jan-2003'AND STAFF_SAL BETWEEN 12000 AND 25000;
+
+NAME                                               DESIGNATION_CODE
+-------------------------------------------------- ----------------
+Shyam                                                           102
+Mohan                                                           102
+Anil                                                            102
+=======================================================================
+2.
+SQL>
+
+SQL> select STAFF_CODE, STAFF_NAME,DEPT_CODE from STAFF_MASTER where sysdate-H
+EDATE>18 ORDER BY(sysdate-HIREDATE);
+
+STAFF_CODE STAFF_NAME                                          DEPT_CODE
+---------- -------------------------------------------------- ----------
+    100009 Rahul                                                      20
+    100001 Arvind                                                     30
+    100008 Raviraj                                                    40
+    100007 Smith                                                      20
+    100002 Shyam                                                      20
+    100003 Mohan                                                      10
+    100010 Ram                                                        30
+    100006 Allen                                                      30
+    100004 Anil                                                       20
+    100005 John                                                       10
+
+10 rows selected.
+
+======================================
+SQL> select * from staff_master where mgr_code IS NULL;
+
+no rows selected
+
+
+
+
+=============================================
+
+
+
+
+
+
+
+
+====================================
+
+
+SQL> select staff_name from staff_master where STAFF_NAME LIKE '%\_%';
+
+no rows selected
+
+
+
+==================================================
+
+2
+
+
+====================
+
+
+SQL> select staff_name, LPAD(staff_sal,15,'$') from  staff_master;
+
+STAFF_NAME
+--------------------------------------------------
+LPAD(STAFF_SAL,15,'$')
+------------------------------------------------------------
+Arvind
+$$$$$$$$$$17000
+
+Shyam
+$$$$$$$$$$20000
+
+Mohan
+$$$$$$$$$$24000
+
+
+STAFF_NAME
+--------------------------------------------------
+LPAD(STAFF_SAL,15,'$')
+------------------------------------------------------------
+Anil
+$$$$$$$$$$20000
+
+John
+$$$$$$$$$$32000
+
+Allen
+$$$$$$$$$$42000
+
+
+STAFF_NAME
+--------------------------------------------------
+LPAD(STAFF_SAL,15,'$')
+------------------------------------------------------------
+Smith
+$$$$$$$$$$62000
+
+Raviraj
+$$$$$$$$$$18000
+
+Rahul
+$$$$$$$$$$22000
+
+
+STAFF_NAME
+--------------------------------------------------
+LPAD(STAFF_SAL,15,'$')
+------------------------------------------------------------
+Ram
+$$$$$$$$$$32000
+
+
+10 rows selected.
+
+

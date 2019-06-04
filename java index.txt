@@ -1,0 +1,28 @@
+1.create a string
+2.string pool in java
+3.immutable string in java
+4.why string objects are immutable
+5. replace a character at a specific index
+6.how to initialize  and compare strings in java 
+7.striing liiteral vs string object in java 
+8.differene between == and equals() method
+9.string pool in java 
+10.difference b/w  string /stringBuilder /sringBuffer in java
+11. conversion from string to string buffer / string builder and vice versa
+12. from string buffer to builder.
+13. convert string to int 
+14. convert int to string 
+15. convert int to any stringbase(like hexadecimal , binary ..)
+16.convert string to char array
+17.convert char array to string 
+17. (a) convert stringArray to string 
+17. (b) override toString method for print through object .
+18.reverse a string in 5 different ways
+19.string method 
+20.string buffer class in java
+21.regex
+22.What is the use of using superclass as reference while creating an object of a subclass, for example superclass obj = new subclass() in Java?
+23 array length in java
+24 . indexof operator
+25.explore parentReferenceChildObject with override method and variable with same name which one will invoke by  parentReferenceChildObject
+26. In Java, if object A contains same the same data of object B, are they equal? basically equals and hashcode method of object class
